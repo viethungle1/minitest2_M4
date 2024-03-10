@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <title>ListCustomer</title>
+</head>
+<body>
+<h3>Total Amount By Category</h3>
+<table border="1px">
+    <tr>
+        <th>Category</th>
+        <th>Total Of Amount</th>
+    </tr>
+    <tr th:each="t: ${total}">
+        <td th:text="${t.getName()}"></td>
+        <td th:text="${t.getTotalAmountByCategory()}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Category</title>
+</head>
+<body>
+<h3>Tasks</h3>
+<p>
+    <a th:href="@{/categories/create}">
+        Add new category
+    </a>
+</p>
+<p>
+    <a th:href="@{/tasks}">
+        Back to task list
+    </a>
+</p>
+<div class="notify">
+    <div th:if="${message}">
+        <span th:text="${message}"></span>
+    </div>
+</div>
+
+<table border="1px">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c,cStatus : ${listCategory}">
+        <td th:text="${cStatus.count}"></td>
+        <td th:text="${c.getName()}"></td>
+        <td th:text="${c.getDescription()}"></td>
+        <td><a th:href="@{/categories/update/{id}(id=${c.getId()})}">update</a></td>
+        <td><a th:href="@{/categories/delete/{id}(id=${c.getId()})}">delete</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

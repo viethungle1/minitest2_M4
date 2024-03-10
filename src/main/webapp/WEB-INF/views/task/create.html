@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <title>Create Task</title>
+</head>
+<body>
+<h3>Add Task</h3>
+<p>
+  <a th:href="@{/tasks}">
+    Back to task list
+  </a>
+</p>
+<form th:action="@{/tasks/create}" th:object="${task}" method="POST" novalidate="novalidate">
+    <input type="hidden" th:field="*{id}"/>
+    <div>
+      <label for="name">Name</label>
+      <input type="text" id="name" th:field="*{name}"/>
+    </div>
+    <div>
+      <label for="amount">Note</label>
+      <input type="text" id="amount" th:field="*{note}"/>
+    </div>
+    <div>
+      <label for="amount">Amount</label>
+      <input type="text" id="note" th:field="*{amount}"/>
+    </div>
+    <div>
+      <label for="amount">Amount</label>
+      <select id="category" th:field="*{category}">
+        <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+      </select>
+    </div>
+    <input type="submit" value="Save"/>
+</form>
+</body>
+</html>
