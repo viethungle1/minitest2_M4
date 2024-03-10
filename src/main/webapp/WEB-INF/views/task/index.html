@@ -35,6 +35,7 @@
         <th>Note</th>
         <th>Amout</th>
         <th>Category</th>
+        <th>Img</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -46,6 +47,7 @@
         <td th:text="${t.getNote()}"></td>
         <td th:text="${t.getAmount()}"></td>
         <td th:text="${t.getCategory().getName()}"></td>
+        <td><img th:src="@{'/img/'+${t.getImgStr()}}" width="200px"></td>
         <td><a th:href="@{/tasks/update/{id}(id=${t.getId()})}">update</a></td>
         <td><a th:href="@{/tasks/delete/{id}(id=${t.getId()})}">delete</a></td>
     </tr>

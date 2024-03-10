@@ -5,18 +5,28 @@ import com.example.minitest2.model.entity.Tasks;
 import com.example.minitest2.service.impl.CategoryService;
 import com.example.minitest2.service.impl.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
+import java.util.jar.Attributes;
 
 
 @Controller
 @RequestMapping("/tasks")
 public class TaskController {
+
+    @Value("${upload}")
+    private String upload;
+
     @Autowired
     private TaskService taskService;
 
@@ -41,7 +51,10 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute("task") Tasks tasks, RedirectAttributes redirectAttributes) {
+    public String create(@RequestParam MultipartFile fileUpload,@ModelAttribute("task") Tasks tasks, RedirectAttributes redirectAttributes) throws IOException {
+        String nameImg = fileUpload.getOriginalFilename();
+        FileCopyUtils.copy(fileUpload.getBytes(),new File(upload+nameImg));
+        tasks.setImgStr(nameImg);
         taskService.save(tasks);
         redirectAttributes.addFlashAttribute("message", "Create new customer successfully");
         return "redirect:/tasks";

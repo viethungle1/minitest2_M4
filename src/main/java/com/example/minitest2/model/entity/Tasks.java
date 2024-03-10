@@ -1,5 +1,6 @@
 package com.example.minitest2.model.entity;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -13,9 +14,9 @@ public class Tasks {
     private String name;
     private String note;
     private int amount;
-//    private String imgStr;
-//    @Transient
-//    private MultipartFile img;
+    private String imgStr;
+    @Transient
+    private MultipartFile img;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -23,6 +24,7 @@ public class Tasks {
 
     public Tasks() {
     }
+
 
     public Long getId() {
         return id;
@@ -62,5 +64,21 @@ public class Tasks {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getImgStr() {
+        return imgStr;
+    }
+
+    public void setImgStr(String imgStr) {
+        this.imgStr = imgStr;
+    }
+
+    public MultipartFile getImg() {
+        return img;
+    }
+
+    public void setImg(MultipartFile img) {
+        this.img = img;
     }
 }

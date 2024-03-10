@@ -26,7 +26,6 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -43,8 +42,8 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
 
     private ApplicationContext applicationContext;
 
-//    @Value("${upload}")
-//    private String upload;
+    @Value("${upload}")
+    private String upload;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -118,14 +117,14 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         transactionManager.setEntityManagerFactory(emf);
         return transactionManager;
     }
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/img/**").addResourceLocations("file:" + upload);
-//    }
-//    @Bean(name = "multipartResolver")
-//    public CommonsMultipartResolver getResolver() {
-//        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-//        multipartResolver.setMaxUploadSizePerFile(52428800);
-//        return multipartResolver;
-//    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/img/**").addResourceLocations("file:" + upload);
+    }
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSizePerFile(52428800);
+        return multipartResolver;
+    }
 }

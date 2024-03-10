@@ -5,7 +5,10 @@ import com.example.minitest2.repository.ITaskRepository;
 import com.example.minitest2.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.Optional;
 
 @Service
@@ -32,4 +35,5 @@ public class TaskService implements ITaskService {
     public void remove(Long id) {
         taskRepository.deleteById(id);
     }
+
 }
