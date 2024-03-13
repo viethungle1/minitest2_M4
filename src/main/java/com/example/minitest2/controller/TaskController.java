@@ -1,7 +1,7 @@
 package com.example.minitest2.controller;
 
 import com.example.minitest2.model.entity.Category;
-import com.example.minitest2.model.entity.Tasks;
+import com.example.minitest2.model.entity.Task;
 import com.example.minitest2.service.impl.CategoryService;
 import com.example.minitest2.service.impl.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.jar.Attributes;
 
 
 @Controller
@@ -46,12 +45,12 @@ public class TaskController {
 
     @GetMapping("/create")
     public String createForm(Model model) {
-        model.addAttribute("task", new Tasks());
+        model.addAttribute("task", new Task());
         return "/task/create";
     }
 
     @PostMapping("/create")
-    public String create(@RequestParam MultipartFile fileUpload,@ModelAttribute("task") Tasks tasks, RedirectAttributes redirectAttributes) throws IOException {
+    public String create(@RequestParam MultipartFile fileUpload, @ModelAttribute("task") Task tasks, RedirectAttributes redirectAttributes) throws IOException {
         String nameImg = fileUpload.getOriginalFilename();
         FileCopyUtils.copy(fileUpload.getBytes(),new File(upload+nameImg));
         tasks.setImgStr(nameImg);
@@ -62,7 +61,7 @@ public class TaskController {
 
     @GetMapping("/update/{id}")
     public ModelAndView updateForm(@PathVariable Long id) {
-        Optional<Tasks> task = taskService.findById(id);
+        Optional<Task> task = taskService.findById(id);
         if (task.isPresent()) {
             ModelAndView modelAndView = new ModelAndView("/task/update");
             modelAndView.addObject("task", task.get());
@@ -73,7 +72,7 @@ public class TaskController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@ModelAttribute("task") Tasks tasks, RedirectAttributes redirect) {
+    public String update(@ModelAttribute("task") Task tasks, RedirectAttributes redirect) {
         taskService.save(tasks);
         redirect.addFlashAttribute("message", "Update customer successfully");
         return "redirect:/tasks";
@@ -90,4 +89,5 @@ public class TaskController {
         model.addAttribute("total",categoryService.totalAmountOfCategories());
         return "/task/total";
     }
+
 }

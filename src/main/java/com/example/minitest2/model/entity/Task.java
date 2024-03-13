@@ -1,13 +1,12 @@
 package com.example.minitest2.model.entity;
 
-import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "task")
-public class Tasks {
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +21,7 @@ public class Tasks {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Tasks() {
+    public Task() {
     }
 
 

@@ -38,4 +38,8 @@ public class CategoryService implements ICategoryService {
     public Iterable<TotalAmountOfCategory> totalAmountOfCategories() {
         return categoryRepository.sumAmountByCategory();
     }
+
+    public void setNullCategory(Long id) {
+        categoryRepository.setNullCategoryIdForTask(id);
+    }
 }
